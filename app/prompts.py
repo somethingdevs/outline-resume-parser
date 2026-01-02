@@ -1,4 +1,4 @@
-prompt = f"""
+PROMPT_TEMPLATE = """
 Extract structured resume information from the text below.
 
 Follow this structure exactly:
@@ -55,8 +55,11 @@ Rules:
 - Return missing sections as empty lists
 - Do not add extra fields
 - Do not include explanations or commentary
+- Use "Present" exactly for ongoing roles
 - Project name should be the heading text; do not leave it null if present.
 
 RESUME TEXT:
-{resume_text}
+{{RESUME_TEXT}}
 """
+
+DEFAULT_MODEL_NAME = "ministral-3:8b"

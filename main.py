@@ -4,6 +4,7 @@ import pymupdf
 
 from datetime import datetime, timezone
 
+from app.debug import write_text, write_json
 from app.parser import extract_pdf_text, clean_text, parse_resume
 from app.prompts import DEFAULT_MODEL_NAME
 from schemas.meta import Meta
@@ -39,7 +40,12 @@ def main() -> None:
     raw_text = extract_pdf_text(str(input_path))
     cleaned_text = clean_text(raw_text)
 
-    resume = parse_resume(cleaned_text)
+    resume, raw_json, prompt = parse_resume(cleaned_text)
+
+    # Write stuff to debug files
+    write_text(f"{output_dir}/{input_path.stem}.cleaned", cleaned_text)
+    write_text(f"{output_dir}/{input_path.stem}.prompt", prompt)
+    write_text(f"{output_dir}/{input_path.stem}.raw", raw_json)
 
     meta = Meta(
         source_file=str(input_path),
@@ -53,14 +59,12 @@ def main() -> None:
     output = build_output(resume=resume, meta=meta)
 
     # Write JSON
-    out_file = output_dir / f'{input_path.stem}.json'
-    with out_file.open("w", encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
+    write_json(f"{output_dir}/{input_path.stem}.final", output)
+    print(f"Wrote: {output_dir}/{input_path.stem}.final.json")
 
     if args.print:
         print(json.dumps(output, indent=2, ensure_ascii=False))
 
-    print(f"Wrote: {out_file}")
 
 if __name__ == "__main__":
     main()

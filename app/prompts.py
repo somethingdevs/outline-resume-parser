@@ -53,7 +53,6 @@ Follow this structure exactly:
 Rules:
 - Return missing values as null
 - Return missing sections as empty lists
-- Do not add extra fields
 - Do not include explanations or commentary
 - Use "Present" exactly for ongoing roles
 - Project name should be the heading text; do not leave it null if present.

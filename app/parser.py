@@ -9,7 +9,7 @@ from schemas.resume import Resume
 
 ollama_client = Client()
 model = outlines.from_ollama(ollama_client, DEFAULT_MODEL_NAME)
-resume_gen = Generator(model=model, output_type=Resume)
+
 
 def extract_pdf_text(path: str) -> str:
     with pymupdf.open(path) as doc:
@@ -25,6 +25,10 @@ def clean_text(text: str) -> str:
 
     # Remove form-feed / page-break characters
     text = text.replace("\x0c", "")
+
+    text = re.sub(r"file:/\S+", "", text)
+    text = re.sub(r"[A-Za-z]:/[^ \n]+", "", text)  # Windows path fragments
+
 
     # Strip leading/trailing whitespace
     text = text.strip()
@@ -42,13 +46,16 @@ def clean_text(text: str) -> str:
 
 
 
-def parse_resume(text: str) -> Resume:
+def parse_resume(text: str) -> tuple[Resume, str, str]:
     prompt = PROMPT_TEMPLATE.replace("{{RESUME_TEXT}}", text)
 
     if "{{RESUME_TEXT}}" in prompt:
-        print("ERROR PLACEHOLDER!")
+        raise ValueError("PROMPT_TEMPLATE placeholder {{RESUME_TEXT}} was not replaced.")
+
+    resume_gen = Generator(model=model, output_type=Resume)
     raw_json = resume_gen(prompt)
+
     resume = Resume.model_validate_json(raw_json)
+
     # print(resume.model_dump())
-    # print(raw_json)
-    return resume
+    return resume, raw_json, prompt

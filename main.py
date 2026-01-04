@@ -12,10 +12,17 @@ from schemas.resume import Resume
 from pathlib import Path
 
 
-def build_output(resume: Resume, meta: Meta) -> dict:
+def build_output(
+    resume: Resume | None,
+    meta: Meta,
+    success: bool,
+    error: dict | None,
+) -> dict:
     return {
+        "success": success,
+        "error": error,
         "meta": meta.model_dump(),
-        "resume": resume.model_dump()
+        "resume": None if resume is None else resume.model_dump(),
     }
 
 def get_pdf_page_count(path: Path) -> int:
@@ -27,6 +34,7 @@ def main() -> None:
     parser.add_argument("--input", required=True, help="Path to a resume PDF")
     parser.add_argument("--output-dir", default="outputs", help="Directory to write JSON output")
     parser.add_argument("--print", action="store_true", help="Print output JSON to stdout")
+    parser.add_argument("--debug", action="store_true", help="Toggle saving prompt and raw")
 
     args = parser.parse_args()
 
@@ -37,30 +45,62 @@ def main() -> None:
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    raw_text = extract_pdf_text(str(input_path))
-    cleaned_text = clean_text(raw_text)
+    base = output_dir / input_path.stem
 
-    resume, raw_json, prompt = parse_resume(cleaned_text)
-
-    # Write stuff to debug files
-    write_text(f"{output_dir}/{input_path.stem}.cleaned", cleaned_text)
-    write_text(f"{output_dir}/{input_path.stem}.prompt", prompt)
-    write_text(f"{output_dir}/{input_path.stem}.raw", raw_json)
+    raw_text = ""
+    cleaned_text = ""
+    prompt = ""
+    raw_json = ""
+    resume: Resume | None = None
+    success = False
+    error: dict | None = None
 
     meta = Meta(
         source_file=str(input_path),
         model=DEFAULT_MODEL_NAME,
         timestamp=datetime.now(timezone.utc).isoformat(),
-        chars_extracted=len(cleaned_text),
-        pages=get_pdf_page_count(input_path),
+        chars_extracted=0,
+        pages=0,
         schema_version="0.1"
     )
 
-    output = build_output(resume=resume, meta=meta)
+    try:
+        meta.pages = get_pdf_page_count(input_path)
 
-    # Write JSON
-    write_json(f"{output_dir}/{input_path.stem}.final", output)
-    print(f"Wrote: {output_dir}/{input_path.stem}.final.json")
+        raw_text = extract_pdf_text(str(input_path))
+        cleaned_text = clean_text(raw_text)
+
+        meta.chars_extracted = len(cleaned_text)
+
+        if len(cleaned_text) < 200:
+            raise ValueError("Extracted text is too short; PDF may be image-based or extraction failed.")
+
+        resume, raw_json, prompt = parse_resume(cleaned_text)
+
+        success = True
+
+    except Exception as e:
+        error = {
+            "type": type(e).__name__,
+            "message": str(e)
+        }
+
+    # Write stuff to debug files wrapped in finally block so it always executes
+    finally:
+        if cleaned_text:
+            write_text(f"{base}.cleaned", cleaned_text)
+
+        if args.debug:
+            if prompt:
+                write_text(f"{base}.prompt", prompt)
+
+            if raw_json:
+                write_text(f"{base}.raw", raw_json)
+
+        output = build_output(resume=resume, meta=meta, success=success, error=error)
+        write_json(f"{base}.final", output)
+
+    print(f"Wrote: {base}.final.json")
 
     if args.print:
         print(json.dumps(output, indent=2, ensure_ascii=False))

@@ -1,0 +1,230 @@
+{
+  "success": true,
+  "error": null,
+  "meta": {
+    "source_file": "assets\\Ali_M_SDE_Resume.pdf",
+    "model": "ministral-3:8b",
+    "timestamp": "2026-01-05T03:01:56.890808+00:00",
+    "chars_extracted": 3920,
+    "pages": 1,
+    "schema_version": "0.1",
+    "prompt_version": null
+  },
+  "resume": {
+    "info": {
+      "name": "Ali Hasan Mohiuddin",
+      "location": "Atlanta, Georgia 30068",
+      "phone": "(202)-468-0994",
+      "email": "amohiud@gmu.edu",
+      "github": "github.com/somethingdevs",
+      "linkedin": null,
+      "portfolio": null
+    },
+    "experience": [],
+    "skills": {
+      "languages": [
+        "Python",
+        "Typescript",
+        "Javascript",
+        "Java",
+        "SQL",
+        "HTML/CSS"
+      ],
+      "frameworks": [
+        "React",
+        "FastAPI",
+        "Django",
+        "Express",
+        "Node.js",
+        "Flutter"
+      ],
+      "databases": [
+        "MySQL",
+        "MongoDB",
+        "Postgres",
+        "Firebase",
+        "Teradata"
+      ],
+      "cloud_tools": [
+        "AWS (Redshift, Lambda, S3)",
+        "GCP (BigQuery, Cloud SQL, Cloud Storage, IAM)",
+        "Azure (Function, CosmosDB)",
+        "Docker",
+        "Informatica IDMC",
+        "TOSCA"
+      ],
+      "dev_tools": [
+        "GitHub",
+        "Figma",
+        "Linux",
+        "macOS",
+        "Android Studio",
+        "Apache Tomcat",
+        "Jupyter Notebook"
+      ]
+    },
+    "projects": [],
+    "education": [
+      {
+        "university": "George Mason University",
+        "degree": "Master of Science in Computer Science",
+        "start_date": "Aug 2022",
+        "end_date": "May 2024",
+        "extra_info": "GPA – 3.77"
+      }
+    ],
+    "certifications": [
+      {
+        "certification": "Google Cloud Certified Professional Data Engineer",
+        "start_date": "Sept 2024",
+        "end_date": null,
+        "verification_id": null
+      }
+    ]
+  },
+  "job_description": {
+    "source": "inline",
+    "value": "At Red Hat, we believe the future of AI is open, and we are on a mission to bring the power of open-source LLMs and vLLM to every enterprise. The Red Hat Inference team accelerates AI for the enterprise and brings operational simplicity to GenAI deployments. As leading contributors and maintainers of the vLLM and LLM-D projects and inventors of state-of-the-art techniques for model quantization and sparsification, our team provides a stable platform for enterprises to build, optimize, and scale LLM deployments. As a Machine Learning Engineer focused on vLLM, you will collaborate to solve challenges in model performance and efficiency, building and maintaining subsystems that enable vLLM to support tool calling and structured outputs. You will bridge probabilistic token generation with deterministic schema compliance by working on tool parsers and logit-level structured output engines. Responsibilities include writing robust Python and Pydantic code, contributing to vLLM function calling and structured output systems, participating in technical design, reviewing code, mentoring engineers, and collaborating across teams. Required skills include strong Python and Pydantic experience, deep understanding of LLM inference (logits, sampling, decoding), familiarity with the OpenAI Chat Completions API, libraries such as Outlines, XGrammar, Guidance, or llama.cpp grammars, incremental parsing, Jinja2 templates, beam search and greedy decoding, inference metrics, and PyTorch. Strong communication skills are required. A BS or MS is required; PhD is a plus. Salary range is ,650–,680 with full benefits. Red Hat is a global leader in enterprise open-source software with a flexible, inclusive work culture.",
+    "chars": 1720,
+    "keywords": {
+      "must_have": [
+        {
+          "keyword": "Python",
+          "evidence": "writing robust Python and Pydantic code"
+        },
+        {
+          "keyword": "Pydantic",
+          "evidence": "writing robust Python and Pydantic code"
+        },
+        {
+          "keyword": "LLM inference (logits, sampling, decoding)",
+          "evidence": "deep understanding of LLM inference (logits, sampling, decoding)"
+        },
+        {
+          "keyword": "OpenAI Chat Completions API",
+          "evidence": "familiarity with the OpenAI Chat Completions API"
+        },
+        {
+          "keyword": "PyTorch",
+          "evidence": "PyTorch"
+        },
+        {
+          "keyword": "vLLM",
+          "evidence": "Machine Learning Engineer focused on vLLM"
+        },
+        {
+          "keyword": "structured output systems",
+          "evidence": "building and maintaining subsystems that enable vLLM to support tool calling and structured outputs"
+        },
+        {
+          "keyword": "tool parsers",
+          "evidence": "working on tool parsers"
+        },
+        {
+          "keyword": "logit-level structured output engines",
+          "evidence": "logit-level structured output engines"
+        },
+        {
+          "keyword": "incremental parsing",
+          "evidence": "incremental parsing"
+        },
+        {
+          "keyword": "beam search or greedy decoding",
+          "evidence": "beam search and greedy decoding"
+        },
+        {
+          "keyword": "Jinja2 templates",
+          "evidence": "Jinja2 templates"
+        },
+        {
+          "keyword": "inference metrics",
+          "evidence": "inference metrics"
+        },
+        {
+          "keyword": "Outlines, XGrammar, Guidance, or llama.cpp grammars",
+          "evidence": "libraries such as Outlines, XGrammar, Guidance, or llama.cpp grammars"
+        }
+      ],
+      "good_to_have": [
+        {
+          "keyword": "PhD in relevant field",
+          "evidence": "PhD is a plus"
+        }
+      ],
+      "responsibilities": [
+        {
+          "keyword": "collaborate to solve challenges in model performance and efficiency",
+          "evidence": "collaborate to solve challenges in model performance and efficiency"
+        },
+        {
+          "keyword": "build and maintain subsystems for vLLM tool calling and structured outputs",
+          "evidence": "building and maintaining subsystems that enable vLLM to support tool calling and structured outputs"
+        },
+        {
+          "keyword": "bridge probabilistic token generation with deterministic schema compliance",
+          "evidence": "bridge probabilistic token generation with deterministic schema compliance"
+        },
+        {
+          "keyword": "write robust Python and Pydantic code",
+          "evidence": "writing robust Python and Pydantic code"
+        },
+        {
+          "keyword": "contribute to vLLM function calling and structured output systems",
+          "evidence": "contributing to vLLM function calling and structured output systems"
+        },
+        {
+          "keyword": "participate in technical design",
+          "evidence": "participating in technical design"
+        },
+        {
+          "keyword": "review code",
+          "evidence": "reviewing code"
+        },
+        {
+          "keyword": "mentor engineers",
+          "evidence": "mentoring engineers"
+        },
+        {
+          "keyword": "collaborate across teams",
+          "evidence": "collaborating across teams"
+        }
+      ],
+      "soft_skills": [
+        {
+          "keyword": "strong communication skills",
+          "evidence": "Strong communication skills are required"
+        },
+        {
+          "keyword": "collaboration",
+          "evidence": "collaborate to solve challenges... collaborating across teams"
+        },
+        {
+          "keyword": "mentoring",
+          "evidence": "mentoring engineers"
+        }
+      ],
+      "domain": [
+        {
+          "keyword": "enterprise AI/GenAI deployments",
+          "evidence": "accelerates AI for the enterprise and brings operational simplicity to GenAI deployments"
+        },
+        {
+          "keyword": "open-source LLMs",
+          "evidence": "the future of AI is open, and we are on a mission to bring the power of open-source LLMs"
+        },
+        {
+          "keyword": "model quantization and sparsification",
+          "evidence": "state-of-the-art techniques for model quantization and sparsification"
+        },
+        {
+          "keyword": "LLM function calling",
+          "evidence": "vLLM function calling"
+        },
+        {
+          "keyword": "enterprise open-source software",
+          "evidence": "Red Hat is a global leader in enterprise open-source software"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "info": {
+    "name": "Ali Hasan Mohiuddin",
+    "location": "Atlanta, Georgia 30068",
+    "phone": "(202)-468-0994",
+    "email": "amohiud@gmu.edu",
+    "github": "github.com/somethingdevs",
+    "linkedin": null,
+    "portfolio": null
+  },
+  "skills": {
+    "languages": ["Python", "Typescript", "Javascript", "Java", "SQL", "HTML/CSS"],
+    "frameworks": ["React", "FastAPI", "Django", "Express", "Node.js", "Flutter"],
+    "databases": ["MySQL", "MongoDB", "Postgres", "Firebase", "Teradata"],
+    "cloud_tools": ["AWS (Redshift, Lambda, S3)", "GCP (BigQuery, Cloud SQL, Cloud Storage, IAM)", "Azure (Function, CosmosDB)", "Docker", "Informatica IDMC", "TOSCA"],
+    "dev_tools": ["GitHub", "Figma", "Linux", "macOS", "Android Studio", "Apache Tomcat", "Jupyter Notebook"]
+  },
+  "education": [
+    {
+      "university": "George Mason University",
+      "degree": "Master of Science in Computer Science",
+      "start_date": "Aug 2022",
+      "end_date": "May 2024",
+      "extra_info": "GPA – 3.77"
+    }
+  ],
+  "certifications": [
+    {
+      "certification": "Google Cloud Certified Professional Data Engineer",
+      "start_date": "Sept 2024",
+      "end_date": null,
+      "verification_id": null
+    }
+  ]
+}
+
+  																		

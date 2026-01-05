@@ -1,0 +1,70 @@
+Ali Hasan Mohiuddin
+ (202)-468-0994 | amohiud@gmu.edu | github.com/somethingdevs | Atlanta, Georgia 30068
+
+EDUCATION
+Master of Science in Computer Science
+
+ Aug 2022 – May 2024
+George Mason University, Fairfax, Virginia, United States
+
+ GPA – 3.77
+
+PROFESSIONAL EXPERIENCE
+Centene Corporation (via Cognizant Technology Solutions) Nov 2024 – Present
+Application Development Engineer Remote, USA
+• Collaborate with cross-functional teams across WellCare, Fidelis, UMV, and HealthNet to translate business rules into Teradata SQL
+validation suites and regression checks, improving warehouse data accuracy by ~15% and cutting manual review time per release
+by ~25%.
+• Co-own and maintain 25+ production data pipelines built on Informatica IDMC and AWS Glue, tuning mappings, job configurations,
+and load strategies into Teradata and Redshift to reduce pipeline failures by ~30% and stabilize nightly load SLAs.
+• Build reusable SQL scripts and troubleshooting utilities to help engineering teams debug failed loads and verify new ETL logic,
+reducing time to resolution for data issues from ~2 hours to under 30 minutes.
+• Implement secure PHI/PII handling patterns across test and production workflows, eliminating use of raw PHI in lower environments
+and contributing to zero audit findings related to data handling during recent reviews.
+
+Poliquicks Aug 2024 – Nov 2024
+Software Development Volunteer Remote, USA
+• Contributed to the backend of Poliquicks, a U.S. political education app, ensuring accurate and up-to-date election information by
+automating legislative data retrieval and optimizing backend processes.
+• Developed and deployed Azure Functions for automated legislative data retrieval, integrating CosmosDB for scalable storage, and
+ensuring real-time updates by processing 20+ bills daily from the Congress.gov API.
+• Implemented backend routes using Express, Node.js, and MongoDB to support OpenAI GPT-powered features, enabling the
+summarization of complex political data into easy-to-understand formats for voters.
+
+SKILLS
+Languages: Python, Typescript, Javascript, Java, SQL, HTML/CSS
+Frameworks/Libraries: React, FastAPI, Django, Express, Node.js, Flutter
+Cloud & Tools: AWS(Redshift, Lambda, S3), GCP (BigQuery, Cloud SQL, Cloud Storage, IAM), Azure (Function, CosmosDB), Docker, IDMC
+(Informatica), TOSCA
+Databases: MySQL, MongoDB, Postgres, Firebase, Teradata
+Development Tools: GitHub, Figma, Linux, macOS, Android Studio, Apache Tomcat, Jupyter Notebook
+
+ACADEMIC PROJECTS
+ AdhaanLive | Python, FastAPI, AWS, OpenAI API
+
+ Nov 2025
+•
+Designed a real-time, multi-threaded audio pipeline in Python (FFmpeg, PyAudio) to continuously monitor live streams and
+microphone input across multiple locations and capture full-session recordings of call-to-prayer events with low latency.
+•
+Built a FastAPI backend exposing REST APIs for detector control, configuration, and schedule management, integrating
+external prayer-time services and the ChatGPT API to generate natural-language summaries and explanations of detection
+logs for operators.
+•
+Containerized core services with Docker and deployed an AWS architecture using ECS Fargate, Application Load Balancer, S3
+for audio storage, and CloudWatch for centralized logging and monitoring to run the platform as a scalable, fault-tolerant
+cloud service.
+JEEBench Solution Engine. | Python, Hugging Face, BERT, OpenAI API
+
+ May 2024
+•
+Developed an advanced solution engine leveraging the GPT-4 API and LLM BERT models to autonomously solve complex
+problems from the JEEBench dataset, aimed at enhancing preparatory tools for competitive exams.
+•
+Developed a Python-based backend system that integrated advanced NLP models, enabling the automatic interpretation of
+scientific queries and achieving around 40% accuracy rate in generating correct solutions from complex datasets.
+
+CERTIFICATIONS
+ Google Cloud Certified Professional Data Engineer
+
+ Sept 2024

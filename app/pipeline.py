@@ -55,6 +55,10 @@ def process_pdf(pdf_path: Path, output_dir: Path, debug: bool, job_description: 
     success = False
     error: dict | None = None
 
+    # New: match report payload (dict) + scoring error (optional)
+    match_report: dict | None = None
+    match_error: dict | None = None
+
     meta = Meta(
         source_file=str(pdf_path),
         model=DEFAULT_MODEL_NAME,
@@ -77,6 +81,20 @@ def process_pdf(pdf_path: Path, output_dir: Path, debug: bool, job_description: 
         resume, raw_json, prompt = parse_resume(cleaned_text)
         success = True
 
+        # New: run match scoring if JD exists
+        if job_description and resume is not None:
+            try:
+                # Expecting job_description like:
+                # {"source": "...", "value": "...", "chars": ..., "keywords": {...}}
+                jd_keywords = job_description.get("keywords")
+                if isinstance(jd_keywords, dict) and jd_keywords:
+                    from app.scoring import score_resume_against_jd  # local import to avoid circulars
+
+                    report = score_resume_against_jd(resume=resume, jd_keywords=jd_keywords)
+                    match_report = report.model_dump()
+            except Exception as e:
+                match_error = {"type": type(e).__name__, "message": str(e)}
+
     except Exception as e:
         error = {"type": type(e).__name__, "message": str(e)}
 
@@ -98,6 +116,11 @@ def process_pdf(pdf_path: Path, output_dir: Path, debug: bool, job_description: 
             error=error,
             job_description=job_description,
         )
+
+        # New: attach match results
+        output["match_report"] = match_report
+        output["match_error"] = match_error
+
         write_json(f"{base}.final", output)
 
     final_path = Path(f"{base}.final.json")

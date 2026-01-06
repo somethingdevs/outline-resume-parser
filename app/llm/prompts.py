@@ -1,61 +1,74 @@
 PROMPT_TEMPLATE = """
 Extract structured resume information from the text below.
 
-Follow this structure exactly:
+Return ONLY valid JSON (no markdown, no extra text).
 
-1) info:
-   - name
-   - location
-   - phone
-   - email
-   - github
-   - linkedin
-   - portfolio
-
-2) skills:
-    - languages: (list of strings)
-    - frameworks: (list of strings)
-    - databases: (list of strings)
-    - cloud_tools: (list of strings)
-    - dev_tools: (list of strings)
-
-3) experience:
-   - list of roles, each with:
-     - company
-     - position
-     - start_date
-     - end_date
-     - experience_bullets (list of strings)
-
-4) education:
-   - list of entries, each with:
-     - university
-     - degree
-     - start_date
-     - end_date
-     - extra_info
-
-5) projects:
-   - list of projects, each with:
-     - project
-     - technologies (list of strings)
-     - start_date
-     - end_date
-     - project_bullets (list of strings)
-
-6) certifications:
-   - list of certifications, each with:
-     - certification
-     - start_date
-     - end_date
-     - verification_id
+You MUST output this exact JSON shape (all top-level keys must exist exactly once):
+{
+  "info": {
+    "name": null,
+    "location": null,
+    "phone": null,
+    "email": null,
+    "github": null,
+    "linkedin": null,
+    "portfolio": null
+  },
+  "skills": {
+    "languages": [],
+    "frameworks": [],
+    "databases": [],
+    "cloud_tools": [],
+    "dev_tools": []
+  },
+  "experience": [
+    {
+      "company": null,
+      "position": null,
+      "start_date": null,
+      "end_date": null,
+      "experience_bullets": []
+    }
+  ],
+  "education": [
+    {
+      "university": null,
+      "degree": null,
+      "start_date": null,
+      "end_date": null,
+      "extra_info": null
+    }
+  ],
+  "projects": [
+    {
+      "project": null,
+      "technologies": [],
+      "start_date": null,
+      "end_date": null,
+      "project_bullets": []
+    }
+  ],
+  "certifications": [
+    {
+      "certification": null,
+      "start_date": null,
+      "end_date": null,
+      "verification_id": null
+    }
+  ]
+}
 
 Rules:
-- Return missing values as null
-- Return missing sections as empty lists
-- Do not include explanations or commentary
-- Use "Present" exactly for ongoing roles
-- Project name should be the heading text; do not leave it null if present.
+- Use exactly these keys and nesting. Do not add, rename, or remove keys.
+- Missing scalar values must be null.
+- Lists must be [] only if the resume truly has no entries for that section.
+- If the resume text contains "PROFESSIONAL EXPERIENCE", experience must have at least 1 entry.
+- If the resume text contains "ACADEMIC PROJECTS" or "PROJECTS", projects must have at least 1 entry.
+- Use "Present" exactly for ongoing roles.
+- For bullets: merge wrapped lines into the same bullet.
+- For projects: "project" must be the heading text; do not leave it null if present.
+- For technologies: split comma-separated items into a list of strings.
+- If a line contains only "•", treat the following line(s) as the bullet text.
 
 RESUME TEXT:
 {{RESUME_TEXT}}

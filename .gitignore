@@ -3,3 +3,4 @@ assets
 .idea
 app/__pycache__/
 schemas/__pycache__/
+outputs

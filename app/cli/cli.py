@@ -1,8 +1,18 @@
 import argparse
+from dataclasses import dataclass
 from pathlib import Path
 
 
-def parse_args() -> dict:
+@dataclass(frozen=True)
+class CliArgs:
+    input_path: Path
+    output_dir: Path
+    should_print: bool
+    debug: bool
+    jd_text: str | None
+
+
+def parse_args() -> CliArgs:
     parser = argparse.ArgumentParser(description="Schema-safe resume parser (Outlines + Ollama).")
     parser.add_argument("--input", required=True, help="Path to a resume PDF OR a directory of PDFs")
     parser.add_argument("--output-dir", default="outputs", help="Directory to write JSON output")
@@ -10,15 +20,12 @@ def parse_args() -> dict:
     parser.add_argument("--debug", action="store_true", help="Save prompt/raw artifacts (PII risk)")
     parser.add_argument("--jd-text", help="Inline job description text (paste directly)")
 
-    args = parser.parse_args()
+    ns = parser.parse_args()
 
-    input_path = Path(args.input)
-    output_dir = Path(args.output_dir)
-
-    return {
-        "input_path": input_path,
-        "output_dir": output_dir,
-        "print": args.print,
-        "debug": args.debug,
-        "jd_text": args.jd_text,
-    }
+    return CliArgs(
+        input_path=Path(ns.input),
+        output_dir=Path(ns.output_dir),
+        should_print=bool(ns.print),
+        debug=bool(ns.debug),
+        jd_text=ns.jd_text,
+    )

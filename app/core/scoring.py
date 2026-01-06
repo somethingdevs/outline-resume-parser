@@ -3,7 +3,7 @@ import outlines
 from outlines import Generator
 from ollama import Client
 
-from app.prompts import DEFAULT_MODEL_NAME, PROMPT_MATCH_REPORT
+from app.llm.prompts import DEFAULT_MODEL_NAME, PROMPT_MATCH_REPORT
 from schemas.match_report import MatchReport
 
 _ollama = Client()

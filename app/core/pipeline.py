@@ -1,10 +1,10 @@
 import datetime
 from pathlib import Path
 
-from app.debug import write_text, write_json
-from app.io_utils import get_pdf_page_count
-from app.parser import extract_pdf_text, clean_text, parse_resume
-from app.prompts import DEFAULT_MODEL_NAME
+from app.io.debug import write_text, write_json
+from app.io.io_utils import get_pdf_page_count
+from app.core.parser import extract_pdf_text, clean_text, parse_resume
+from app.llm.prompts import DEFAULT_MODEL_NAME
 from schemas.meta import Meta
 from schemas.resume import Resume
 
@@ -88,7 +88,7 @@ def process_pdf(pdf_path: Path, output_dir: Path, debug: bool, job_description: 
                 # {"source": "...", "value": "...", "chars": ..., "keywords": {...}}
                 jd_keywords = job_description.get("keywords")
                 if isinstance(jd_keywords, dict) and jd_keywords:
-                    from app.scoring import score_resume_against_jd  # local import to avoid circulars
+                    from app.core.scoring import score_resume_against_jd  # local import to avoid circulars
 
                     report = score_resume_against_jd(resume=resume, jd_keywords=jd_keywords)
                     match_report = report.model_dump()

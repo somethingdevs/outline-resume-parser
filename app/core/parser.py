@@ -1,10 +1,9 @@
-import re
 import pymupdf
 import outlines
 from outlines import Generator
 from ollama import Client
 
-from app.prompts import PROMPT_TEMPLATE, DEFAULT_MODEL_NAME
+from app.llm.prompts import PROMPT_TEMPLATE, DEFAULT_MODEL_NAME
 from schemas.resume import Resume
 
 ollama_client = Client()
@@ -15,9 +14,6 @@ def extract_pdf_text(path: str) -> str:
     with pymupdf.open(path) as doc:
         return "\n\n".join(page.get_text() for page in doc)
 
-
-import re
-import unicodedata
 
 def clean_text(text: str) -> str:
     if not text:

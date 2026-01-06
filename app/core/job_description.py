@@ -4,7 +4,7 @@ import outlines
 from outlines import Generator
 from ollama import Client
 
-from app.prompts import DEFAULT_MODEL_NAME, PROMPT_JD_KEYWORDS
+from app.llm.prompts import DEFAULT_MODEL_NAME, PROMPT_JD_KEYWORDS
 from schemas.jd_keywords import JdKeywords
 
 

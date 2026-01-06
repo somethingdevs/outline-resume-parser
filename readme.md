@@ -1,132 +1,174 @@
-# Schema-Safe Resume Parser (ATS-Ready)
+# Outline Resume Parser
 
-A web-friendly, schema-safe resume parsing engine built using **Outlines** and **local open-source LLMs (via Ollama)**.
+A small full-stack app to **upload a resume PDF**, **parse it**, optionally **match it against a job description**, and **view structured JSON output**.
 
-The core idea is simple:  
-**turn messy resume PDFs into reliable, structured JSON** that you can actually use — for ATS screening, job matching, and resume optimization.
-
-This project started as a resume parser and is evolving into a lightweight **ATS analyzer + resume/JD matcher**.
-
----
-
-## What this does (right now)
-
-- Upload a resume (PDF)
-- Extract text locally
-- Use **schema-constrained LLM generation** to produce:
-  - contact info
-  - skills (categorized)
-  - experience (roles + bullets)
-  - education
-  - projects
-  - certifications
-- Output is **guaranteed valid JSON** (no broken formats, no post-processing hacks)
-
-The structured output accurately reflects real resume content (tested on production resumes).
+- Backend: **FastAPI**
+- Frontend: **React (Vite) + Tailwind CSS + Ant Design**
+- Transport: **multipart/form-data**
+- Output: **JSON**
 
 ---
 
-## Why this exists
+## Features
 
-Traditional LLM resume parsers:
-- hallucinate fields
-- break JSON
-- require retry logic and regex cleanup
-
-This project avoids that by using **Outlines** to constrain generation at the token level:
-- the model *cannot* emit invalid structure
-- missing fields become `null`
-- missing sections become empty lists
-
-Think **contracts > prompts**.
+- Upload resume PDF
+- Parse resume into structured JSON (`/parse`)
+- Match resume against job description (`/match`)
+- Debug mode for extra output
+- Dark mode UI
+- Copy / download JSON output
+- Health check (`/health`)
 
 ---
 
-## Tech stack
+## Project Structure
 
-- **Python**
-- **Outlines (v1)** — structured / constrained generation
-- **Ollama** — local LLM runtime
-- **Ministral-3 8B** — open-source generative model
-- **Pydantic** — schema enforcement
-- **PyMuPDF** — PDF text extraction
-
-No cloud APIs. No vendor lock-in. Runs locally.
-
----
-
-## Current schema (high level)
-
-Resume
-├── info
-├── skills
-│ ├── languages
-│ ├── frameworks
-│ ├── databases
-│ ├── cloud_tools
-│ └── dev_tools
-├── experience [ ]
-├── projects [ ]
-├── education [ ]
-└── certifications [ ]
-
-
-Every field is optional. Lists default to empty.  
-This makes the parser resilient across wildly different resume formats.
-
----
-
-## Where this is going (planned)
-
-### 1) Web application (next)
-- Upload resume via UI
-- Preview extracted sections
-- Download JSON
-- Basic validation warnings (missing email, empty skills, etc.)
-
-### 2) ATS / Job Description matcher
-- Upload resume + paste job description
-- Output:
-  - matched skills
-  - missing keywords
-  - overlap score (simple, explainable)
-- No “AI magic score” nonsense — transparent heuristics
-
-### 3) Resume optimizer
-- Generate ATS-friendly bullets aligned to a JD
-- Reorder sections based on role
-- Normalize formatting automatically
-
-### 4) vLLM backend (optional)
-- Swap Ollama for vLLM to support:
-  - higher throughput
-  - server-based inference
-  - production-style deployment
-
----
-
-## Why this is useful (actually)
-
-- Personal resume optimization
-- Recruiter screening tools
-- Data-driven ATS analysis
-- Structured resume datasets
-- Inference / LLM tooling portfolio piece
-
-This isn’t a toy demo — it’s a foundation.
-
----
-
-## Running locally (high level)
-
-1. Install **Ollama**
-2. Pull the model:
-```bash
-   ollama run ministral-3:8b
+```text
+outline-resume-parser/
+│
+├── app/                     # FastAPI app
+│   ├── api/
+│   │   ├── app.py
+│   │   └── routes.py
+│   └── ...
+│
+├── frontend/                # React frontend
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── api.js
+│   │   ├── main.jsx
+│   │   └── index.css
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
+│
+├── .venv/                   # Python virtual environment
+├── README.md
+└── requirements.txt
 ```
-3. Create a Python virtual environment
-4. Install dependencies
-5. Run the parser on a PDF
+
+Backend Setup (FastAPI)
+1. Create and activate virtual environment
+python -m venv .venv
+.\.venv\Scripts\activate
+2. Install dependencies
+pip install -r requirements.txt
+3. Run backend
+python -m uvicorn app.api.app:app --reload --host 127.0.0.1 --port 8000
+4. Verify backend
+Health check:
+http://127.0.0.1:8000/health
+
+Swagger UI:
+http://127.0.0.1:8000/docs
+
+Frontend Setup (React + Tailwind + AntD)
+Requirements
+Node.js 20.19+ or 22+ (Node 24 LTS works)
+
+npm
+
+Verify:
+
+bash
+Copy code
+node -v
+1. Install frontend dependencies
+bash
+Copy code
+cd frontend
+npm install
+2. Run frontend dev server
+bash
+Copy code
+npm run dev
+Open:
+
+arduino
+Copy code
+http://localhost:5173
+Frontend ↔ Backend Communication
+Vite dev proxy forwards:
+
+/health
+
+/parse
+
+/match
+
+No CORS issues in development
+
+Axios timeout set to 5 minutes for long parsing jobs
+
+js
+Copy code
+timeout: 300000 // 5 minutes
+API Endpoints
+GET /health
+Returns backend status.
+
+json
+Copy code
+{ "status": "ok" }
+POST /parse
+Request
+
+file (PDF, required)
+
+debug (boolean, optional)
+
+Response
+
+Parsed resume JSON
+
+POST /match
+Request
+
+file (PDF, required)
+
+jd_text (string, optional)
+
+debug (boolean, optional)
+
+Response
+
+Resume + job description matching output
+
+Dark Mode
+Ant Design dark algorithm via ConfigProvider
+
+Tailwind-based dark layout
+
+Global dark canvas applied to html, body, and #root
+
+css
+Copy code
+html,
+body,
+#root {
+  background: #09090b;
+  color: #f4f4f5;
+}
+Notes / Gotchas
+Remove default Vite App.css styles (#root { max-width... })
+They interfere with full-width dark layouts.
+
+Python venv and Node/npm are completely separate.
+
+Large PDFs or LLM parsing may take time → frontend timeout already increased.
+
+Development Tips
+Backend logs show all requests:
+
+text
+Copy code
+POST /parse 200 OK
+POST /match 200 OK
+Frontend errors are displayed inline in the UI.
+
+JSON output can be copied or downloaded directly.
+
+
 ## Contributions
 
 Contributions are welcome! Here’s how you can help:
